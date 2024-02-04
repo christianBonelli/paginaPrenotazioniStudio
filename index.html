@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Prenotazioni Studio Commercialista</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<style>
+   body{
+    background-image: url(img/sfondo_studio.jpg);
+    color: white;
+    display: auto;
+}
+h1{
+    text-align: center;
+}
+
+.btn {
+        text-align:center;
+    }
+</style>
+</head>
+<body>
+   
+
+<p id="demo"></p>
+    <h1>Lo studio è Aperto dalle <time>10:00</time> alle <time>19:00</time> durante la Settimana</h1>
+    <div class="container mt-5">
+        <h1>Prenota Il Tuo Appuntamento</h1>
+        <form>
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="cognome">Cognome:</label>
+            <input type="text" class="form-control" id="cognome" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+        <div class="form-group">
+            <p>Scegli Il Dott/Dottoressa:</p>
+            <select  class="form-control" name="commercialisti" id="commercialisti" required>
+                <option value="Dott. Verdi">Dott. Verdi</option>
+                <option value="Dottoressa Paola">Dottoressa Paola</option>
+                <option value="Dott. Archimede">Dott. Archimede</option>
+            </select>
+           
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="dataOra">Data e Ora:</label>
+            <input type="datetime-local" class="form-control" id="dataOra"  required step="900">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="text">Motivo della visita:</label>
+            <textarea name="note" id="note" cols="175" rows="3"></textarea>
+            </div>
+        <br>
+        <div class="d-grid gap-2 col-4 mx-auto">
+       <button  type="button" class="btn btn-primary text-center" onclick="aggiungiAppuntamento()">Aggiungi Appuntamento</button>
+    </div>
+    </form>
+    <hr>
+    <h1>Prossimi Appuntamenti</h1>
+    <table class="table table-dark">
+        <thead>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Dottore/Dottoressa</th>
+            <th>Data e Ora</th>
+            <th>Motivo della visita</th>
+        </thead>
+        <tbody id="tabella"></tbody>
+    </table>
+    </div>
+    <div class="d-grid gap-1 col-1 mx-auto">
+    <button  class="btn btn-info" onclick="window.print()">Stampa questa pagina</button> <!-- Con questo comando ci stampa la pagina -->
+</div>
+    <script>
+    
+        function aggiungiAppuntamento(){
+
+
+            //Si recuperano i datiinseriti dalla segretaria
+            var nome = document.getElementById("nome").value;
+            var cognome = document.getElementById("cognome").value;
+            var email = document.getElementById("email").value;
+            var commercialisti = document.getElementById("commercialisti").value;
+            var dataOra = document.getElementById("dataOra").value;
+            var note = document.getElementById("note").value;
+
+            if (nome === "" || cognome === "" || email === "" || dataOra === "") {
+              alert("Ti manca di compilare qualche campo");
+            } else {  
+
+            //Creo una riga nella tabella
+            var riga = document.createElement("tr");
+
+            //Crea le colonne per i dati inseriti
+            var colonnaNome = document.createElement("td");
+            var colonnaCognome = document.createElement("td");
+            var colonnaEmail = document.createElement("td");
+            var colonnaCommercialisti = document.createElement("td");
+            var colonnaDataOra = document.createElement("td");
+            var colonnaNote = document.createElement("td")
+
+            //aggiungiamo i valori alla tabelle
+             colonnaNome.innerText = nome;
+             colonnaCognome.innerText = cognome;
+             colonnaEmail.innerText = email;
+             colonnaCommercialisti.innerText = commercialisti;
+             colonnaDataOra.innerText =dataOra;
+             colonnaNote.innerText = note;
+
+             //Aggiungiamo i td(Righe) alla tabella.
+             riga.appendChild(colonnaNome);
+             riga.appendChild(colonnaCognome);
+             riga.appendChild(colonnaEmail);
+             riga.appendChild(colonnaCommercialisti);
+             riga.appendChild(colonnaDataOra);
+             riga.appendChild(colonnaNote);
+
+             //Per aggiungere una riga alla tabella
+             var tabella = document.getElementById("tabella");
+             tabella.appendChild(riga);
+
+             //Resetta i campi del form
+            document.getElementById("nome").value = "";
+            document.getElementById("cognome").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("dataOra").value = "";
+            document.getElementById("note").value = "";
+
+        
+    }
+}
+
+
+    </script>
+
+
+</body>
+</html>
